@@ -40,16 +40,26 @@ app.post('/create', async (req, res) => {
 })
 
 app.put('/update/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nama_produk, keterangan, harga, jumlah } = req.body;
     try {
-
+        let produk = await Produk.updateOne({_id: id}, {
+            nama_produk,
+            keterangan,
+            harga,
+            jumlah
+        });
+        res.status(200).json({message: "Success update"})
     } catch (error) {
         console.log(error);
     }
 })
 
 app.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
     try {
-
+        let produk = await Produk.deleteOne({ _id: id });
+        res.status(200).json({ messsage: "Success delete" });
     } catch (error) {
         console.log(error);
     }
