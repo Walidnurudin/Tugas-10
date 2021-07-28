@@ -44,11 +44,10 @@ app.post('/create', async (req, res) => {
     }
 })
 
-app.put('/update/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nama_produk, keterangan, harga, jumlah } = req.body;
+app.put('/update', async (req, res) => {
+    const { id, nama_produk, keterangan, harga, jumlah } = req.body;
     try {
-        let produk = await Produk.updateOne({_id: id}, {
+        let produk = await Produk.updateOne({ _id: id }, {
             nama_produk,
             keterangan,
             harga,
