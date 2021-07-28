@@ -7,8 +7,53 @@
     <title>CRUD Tugas 10</title>
 </head>
 <body>
-    haii <%- name %>
-    
-    <%- data %>
+    Hai, nama saya <%- name %>
+
+    <h1>TAMBAH PRODUK</h1>
+    <form action="/create" method="POST">
+        <label for="nama_produk">nama produk*</label>
+        <input type="text" name="nama_produk">
+
+        <label for="keterangan">keterangan</label>
+        <input type="text" name="keterangan">
+
+        <label for="harga">harga*</label>
+        <input type="number" name="harga">
+
+        <label for="jumlah">jumlah*</label>
+        <input type="number" name="jumlah">
+
+        <button type="submit">tambah</button>
+    </form>
+
+    <h1>LIST PRODUK</h1>
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Nama produk</th>
+            <th>Keterangan</th>
+            <th>Harga</th>
+            <th>Jumlah</th>
+            <th>Action</th>
+        </tr>
+        <% for(let i = 0; i < data.length; i++){ %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= data[i].nama_produk %></td>
+                <td><%= data[i].keterangan %></td>
+                <td><%= data[i].harga %></td>
+                <td><%= data[i].jumlah %></td>
+                <td>
+                    <form action="/delete/<%= data[i].id %>?_method=DELETE" method="POST">
+                        <button type="submit">hapus</button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+
+    <script>
+
+    </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+var methodOverride = require('method-override')
 const Produk = require("./models/produk");
 
 const app = express();
@@ -8,6 +9,7 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'))
 
 // routes & controllers
 app.get('/', async (req, res) => {
@@ -20,6 +22,7 @@ app.get('/', async (req, res) => {
         console.log(produk)
     } catch (error) {
         console.log(error)
+        res.redirect("/");
     }
 });
 
@@ -33,9 +36,11 @@ app.post('/create', async (req, res) => {
             harga,
             jumlah
         });
-        res.status(200).json({ message: "Success create", data: produk });
+        console.log({ message: "Success create", data: produk })
+        res.redirect("/");
     } catch (error) {
         console.log(error)
+        res.redirect("/");
     }
 })
 
@@ -49,9 +54,11 @@ app.put('/update/:id', async (req, res) => {
             harga,
             jumlah
         });
-        res.status(200).json({message: "Success update"})
+        console.log({ message: "Success update", data: produk })
+        res.redirect("/");
     } catch (error) {
         console.log(error);
+        res.redirect("/");
     }
 })
 
@@ -59,9 +66,11 @@ app.delete('/delete/:id', async (req, res) => {
     const { id } = req.params;
     try {
         let produk = await Produk.deleteOne({ _id: id });
-        res.status(200).json({ messsage: "Success delete" });
+        console.log({ message: "Success update", data: produk })
+        res.redirect("/");
     } catch (error) {
         console.log(error);
+        res.redirect("/");
     }
 })
 
